@@ -1,6 +1,6 @@
 ## Description
 
-Contesco RESTful API.
+Contesco RESTful API built with NestJS and TypeScript
 
 ## Installation
 
@@ -28,7 +28,7 @@ $ yarn run start:prod
 $ yarn run test
 
 # e2e tests
-$ npm run test:e2e
+$ yarn run test:e2e
 
 # test coverage
 $ yarn run test:cov
