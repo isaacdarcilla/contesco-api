@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
-import { IsNull, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
@@ -11,25 +11,19 @@ export class UsersService {
     ) { }
 
     async findAll(options?: { pagination: number, sortDirection: string, sortField: string }): Promise<User[]> {
-        return this.userRepository.find({
-            where: {
-                deletedAt: IsNull(),
-            },
-            take: options.pagination || 10,
-            order: {
-                [options.sortField]: options.sortDirection === "descending" ? 'DESC' : 'ASC',
-            }
-        });
+        return this.userRepository.manager
+            .createQueryBuilder(User, "user")
+            .leftJoinAndSelect("user.organization", "organizationId")
+            .take(options.pagination || 10)
+            .orderBy(options.sortField, options.sortDirection === "descending" ? "DESC" : "ASC")
+            .getMany();
     }
 
     async findOne(userId: string): Promise<User> {
-        return this.userRepository.findOne({
-            where: {
-                id: userId,
-            },
-            relations: { 
-                organization: true,
-            }
-        });
+        return this.userRepository.manager
+            .createQueryBuilder(User, "user")
+            .leftJoinAndSelect("user.organization", "organizationId")
+            .where("user.id = :userId", { userId })
+            .getOne();
     }
 }

@@ -8,7 +8,7 @@ export class UsersController {
 
     @Version('1')
     @Get()
-    findAll(@Query('pagination') pagination?: number, @Query('sortDirection') sortDirection?: string, @Query('sortField') sortField: string  = 'createAt'): Promise<User[]> {
+    findAll(@Query('pagination') pagination?: number, @Query('sortDirection') sortDirection?: string, @Query('sortField') sortField: string  = 'user.createdAt'): Promise<User[]> {
         return this.usersService.findAll({
             pagination: pagination,
             sortDirection: sortDirection,
