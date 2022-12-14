@@ -10,10 +10,14 @@ export class UsersService {
         private userRepository: Repository<User>,
     ) { }
 
-    async findAll(): Promise<User[]> {
+    async findAll(options?: { pagination: number, sortDirection: string, sortField: string }): Promise<User[]> {
         return this.userRepository.find({
             where: {
                 deletedAt: IsNull(),
+            },
+            take: options.pagination || 10,
+            order: {
+                [options.sortField]: options.sortDirection === "descending" ? 'DESC' : 'ASC',
             }
         });
     }

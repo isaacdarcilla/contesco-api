@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, Param, Version } from '@nestjs/common';
+import { Controller, Get, Param, Query, Version } from '@nestjs/common';
 import { User } from 'src/entities/user.entity';
 import { UsersService } from './users.service';
 
@@ -8,8 +8,12 @@ export class UsersController {
 
     @Version('1')
     @Get()
-    findAll(): Promise<User[]> {
-        return this.usersService.findAll();
+    findAll(@Query('pagination') pagination?: number, @Query('sortDirection') sortDirection?: string, @Query('sortField') sortField: string  = 'createAt'): Promise<User[]> {
+        return this.usersService.findAll({
+            pagination: pagination,
+            sortDirection: sortDirection,
+            sortField: sortField
+        });
     }
 
     @Version('1')
