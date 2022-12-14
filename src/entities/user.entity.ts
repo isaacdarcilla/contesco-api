@@ -1,9 +1,14 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Organization } from './organization.entity';
 
 @Entity('users')
 export class User {
     @PrimaryGeneratedColumn('uuid')
     id: number;
+
+    @OneToOne(() => Organization)
+    @JoinColumn()
+    organization: Organization
 
     @Column({
         nullable: true,
