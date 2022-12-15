@@ -1,65 +1,52 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { BeforeInsert, Column, CreateDateColumn, DeleteDateColumn, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Organization } from './organization.entity';
-
+import * as bcrypt from 'bcrypt';
 @Entity('users')
 export class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @OneToOne(() => Organization, { nullable: true })
+    @OneToOne(() => Organization, (organization) => organization.user, { nullable: true, cascade: true })
     @JoinColumn()
     organization: Organization
 
-    @Column({
-        nullable: true,
-    })
+    @Index({ fulltext: true })
+    @Column({ nullable: true })
     firstName: string;
 
-    @Column({
-        nullable: true,
-    })
+    @Index({ fulltext: true })
+    @Column({ nullable: true })
     middleName: string;
 
-    @Column({
-        nullable: true,
-    })
+    @Index({ fulltext: true })
+    @Column({ nullable: true })
     lastName: string;
 
-    @Column({
-        unique: true,
-        nullable: true
-    })
+    @Index({ fulltext: true })
+    @Column({ unique: true, nullable: true })
     userName: string;
 
-    @Column({
-        unique: true,
-        nullable: true,
-    })
+    @Index({ fulltext: true })
+    @Column({ unique: true, nullable: true })
     email: string;
 
-    @Column({
-        nullable: false,
-        select: false,
-    })
+    @Column({ nullable: false, select: false })
     password: string;
 
-    @Column({
-        nullable: true
-    })
+    @Column({ nullable: true })
     emailVerifiedAt: Date;
 
-    @CreateDateColumn({
-        nullable: true
-    })
+    @CreateDateColumn({ nullable: true })
     createdAt: Date;
 
-    @UpdateDateColumn({
-        nullable: true
-    })
+    @UpdateDateColumn({ nullable: true })
     updatedAt: Date;
 
-    @DeleteDateColumn({
-        nullable: true
-    })
+    @DeleteDateColumn({ nullable: true })
     deletedAt: Date;
+
+    @BeforeInsert()
+    async encrypt() {
+        this.password = await bcrypt.hash(this.password, 12);
+    }
 }
