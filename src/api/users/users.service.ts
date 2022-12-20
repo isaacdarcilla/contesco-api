@@ -15,7 +15,7 @@ export class UsersService {
     async findAll(options?: UserFindAll): Promise<User[]> {
         return this.userRepository.manager
             .createQueryBuilder(User, "user")
-            .leftJoinAndSelect("user.organization", "organizationId")
+            .leftJoinAndSelect("user.organization", "userId")
             .take(options.pagination || 10)
             .orderBy(options.sortField, options.sortDirection === "descending" ? "DESC" : "ASC")
             .where("user.email LIKE :query")
@@ -30,7 +30,7 @@ export class UsersService {
     async findOne(userId: string): Promise<User> {
         return this.userRepository.manager
             .createQueryBuilder(User, "user")
-            .leftJoinAndSelect("user.organization", "organizationId")
+            .leftJoinAndSelect("user.organization", "userId")
             .where("user.id = :userId", { userId })
             .getOne();
     }

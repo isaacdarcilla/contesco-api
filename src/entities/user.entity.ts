@@ -6,8 +6,7 @@ export class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @OneToOne(() => Organization, (organization) => organization.user, { nullable: true, cascade: true })
-    @JoinColumn()
+    @OneToOne(() => Organization, (organization) => organization.user)
     organization: Organization
 
     @Index({ fulltext: true })
