@@ -1,4 +1,14 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+    Column,
+    CreateDateColumn,
+    DeleteDateColumn,
+    Entity,
+    Index,
+    JoinColumn,
+    OneToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
 import { User } from './user.entity';
 
 @Entity('organizations')
@@ -6,9 +16,12 @@ export class Organization {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @OneToOne(() => User, (user) => user.organization, { nullable: true, cascade: true })
+    @OneToOne(() => User, (user) => user.organization, {
+        nullable: true,
+        cascade: true,
+    })
     @JoinColumn()
-    user: User
+    user: User;
 
     @Index({ fulltext: true })
     @Column({ nullable: true })

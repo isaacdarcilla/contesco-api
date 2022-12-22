@@ -1,4 +1,4 @@
-import { registerAs } from "@nestjs/config"
+import { registerAs } from '@nestjs/config';
 
 export default registerAs('database', () => {
     return {
@@ -10,10 +10,10 @@ export default registerAs('database', () => {
         password: process.env.DB_PASSWORD,
         synchronize: process.env.SYNCHRONIZE || false,
         autoLoadEntities: true,
-        entities: ["dist/**/*.entity{.ts,.js}"],
-        migrations: ["dist/migrations/*{.ts,.js}"],
+        entities: ['dist/**/*.entity{.ts,.js}'],
+        migrations: ['dist/migrations/*{.ts,.js}'],
         cli: {
-            migrationsDir: "dist/migrations"
+            migrationsDir: 'dist/migrations',
         },
-    }
-})
+    };
+});

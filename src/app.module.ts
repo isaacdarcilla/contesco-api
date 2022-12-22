@@ -6,17 +6,19 @@ import config from 'src/config/database.config';
 import { UsersModule } from './api/users/users.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      load: [config],
-      isGlobal: true,
-    }),
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({...configService.get('database')})
-    }),
-    AuthModule,
-    UsersModule
-  ]
+    imports: [
+        ConfigModule.forRoot({
+            load: [config],
+            isGlobal: true,
+        }),
+        TypeOrmModule.forRootAsync({
+            inject: [ConfigService],
+            useFactory: async (configService: ConfigService) => ({
+                ...configService.get('database'),
+            }),
+        }),
+        AuthModule,
+        UsersModule,
+    ],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Query, Version } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Param,
+    Post,
+    Query,
+    Version,
+} from '@nestjs/common';
 import { Delete } from '@nestjs/common/decorators';
 import { CreateUserDto } from 'src/dto/users/create-user.dto';
 import { User } from 'src/entities/user.entity';
@@ -7,21 +15,21 @@ import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-    constructor(private usersService: UsersService) { }
+    constructor(private usersService: UsersService) {}
 
     @Version('1')
     @Get()
     findAll(
         @Query('pagination') pagination?: number,
         @Query('sortDirection') sortDirection?: string,
-        @Query('sortField') sortField: string = 'user.createdAt',
-        @Query('searchTerm') searchTerm: string = ''
+        @Query('sortField') sortField = 'user.createdAt',
+        @Query('searchTerm') searchTerm = '',
     ): Promise<User[]> {
         return this.usersService.findAll({
             pagination: pagination,
             sortDirection: sortDirection,
             sortField: sortField,
-            searchTerm: searchTerm
+            searchTerm: searchTerm,
         });
     }
 

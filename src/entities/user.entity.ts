@@ -1,13 +1,23 @@
-import { BeforeInsert, Column, CreateDateColumn, DeleteDateColumn, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { Organization } from './organization.entity';
 import * as bcrypt from 'bcrypt';
+import {
+    BeforeInsert,
+    Column,
+    CreateDateColumn,
+    DeleteDateColumn,
+    Entity,
+    Index,
+    OneToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
+import { Organization } from './organization.entity';
 @Entity('users')
 export class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @OneToOne(() => Organization, (organization) => organization.user)
-    organization: Organization
+    organization: Organization;
 
     @Index({ fulltext: true })
     @Column({ nullable: true })
