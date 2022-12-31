@@ -6,7 +6,6 @@ import {
     Post,
     Query,
     Version,
-    Headers,
 } from '@nestjs/common';
 import { Delete } from '@nestjs/common/decorators';
 import { DefaultValuePipe, ParseIntPipe } from '@nestjs/common/pipes';
@@ -29,7 +28,6 @@ export class UsersController {
         @Query('sortDirection') sortDirection = 'descending',
         @Query('sortField') sortField = 'user.createdAt',
         @Query('searchTerm') searchTerm = '',
-        @Headers('host') host: string,
     ): Promise<Pagination<User>> {
         limit = limit > 100 ? 100 : limit;
         return this.usersService.findAll(
