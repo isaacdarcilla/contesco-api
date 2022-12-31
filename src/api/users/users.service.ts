@@ -3,7 +3,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Repository, UpdateResult } from 'typeorm';
 import { CreateUserDto } from '../../dto/users/create-user.dto';
-import { UserFindAll } from '../../types/user-find-all.type';
+import { IQueryParameters } from '../../types/user-find-all.type';
+import {
+    paginate,
+    Pagination,
+    IPaginationOptions,
+} from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class UsersService {
@@ -12,11 +17,13 @@ export class UsersService {
         private userRepository: Repository<User>,
     ) {}
 
-    async findAll(options?: UserFindAll): Promise<User[]> {
-        return this.userRepository.manager
+    async findAll(
+        options?: IQueryParameters,
+        paginationOptions?: IPaginationOptions,
+    ): Promise<Pagination<User>> {
+        const queryBuilder = this.userRepository.manager
             .createQueryBuilder(User, 'user')
             .leftJoinAndSelect('user.organization', 'userId')
-            .take(options.pagination || 10)
             .orderBy(
                 options.sortField,
                 options.sortDirection === 'descending' ? 'DESC' : 'ASC',
@@ -26,8 +33,9 @@ export class UsersService {
             .orWhere('user.middleName LIKE :query')
             .orWhere('user.lastName LIKE :query')
             .orWhere('user.userName LIKE :query')
-            .setParameter('query', `%${options.searchTerm}%`)
-            .getMany();
+            .setParameter('query', `%${options.searchTerm}%`);
+
+        return paginate<User>(queryBuilder, paginationOptions);
     }
 
     async findOne(userId: string): Promise<User> {
