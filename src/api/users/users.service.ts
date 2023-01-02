@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/entities/user.entity';
-import { Repository, UpdateResult } from 'typeorm';
-import { CreateUserDto } from '../../dto/users/create-user.dto';
-import { IQueryParameters } from '../../types/user-find-all.type';
 import {
-    paginate,
-    Pagination,
-    IPaginationOptions,
+    IPaginationOptions, paginate,
+    Pagination
 } from 'nestjs-typeorm-paginate';
+import { User } from 'src/entities/user.entity';
+import { Repository } from 'typeorm';
+import { CreateUserDto } from '../../dto/users/create-user.dto';
+import { UpdateUserDto } from '../../dto/users/update-user.dto';
+import { IQueryParameters } from '../../types/find-interface.type';
 
 @Injectable()
 export class UsersService {
     constructor(
         @InjectRepository(User)
-        private userRepository: Repository<User>,
+        private readonly userRepository: Repository<User>,
     ) {}
 
     async findAll(
@@ -51,7 +51,13 @@ export class UsersService {
         return this.userRepository.save(user);
     }
 
-    async delete(userId: string): Promise<UpdateResult> {
-        return this.userRepository.softDelete(userId);
+    async update(userId: string, updateUserDto: UpdateUserDto): Promise<User> {
+        const user = await this.findOne(userId);
+        return this.userRepository.save({ ...user, ...updateUserDto });
+    }
+
+    async delete(userId: string): Promise<User> {
+        const user = await this.findOne(userId);
+        return this.userRepository.softRemove(user);
     }
 }

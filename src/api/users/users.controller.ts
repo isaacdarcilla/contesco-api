@@ -5,19 +5,19 @@ import {
     Param,
     Post,
     Query,
-    Version,
+    Version
 } from '@nestjs/common';
-import { Delete } from '@nestjs/common/decorators';
+import { Delete, Put } from '@nestjs/common/decorators';
 import { DefaultValuePipe, ParseIntPipe } from '@nestjs/common/pipes';
+import { Pagination } from 'nestjs-typeorm-paginate';
 import { CreateUserDto } from 'src/dto/users/create-user.dto';
 import { User } from 'src/entities/user.entity';
-import { UpdateResult } from 'typeorm';
+import { UpdateUserDto } from '../../dto/users/update-user.dto';
 import { UsersService } from './users.service';
-import { Pagination } from 'nestjs-typeorm-paginate';
 
 @Controller('users')
 export class UsersController {
-    constructor(private usersService: UsersService) {}
+    constructor(private readonly usersService: UsersService) {}
 
     @Version('1')
     @Get()
@@ -58,8 +58,17 @@ export class UsersController {
     }
 
     @Version('1')
+    @Put(':id')
+    async update(
+        @Param('id') userId: string,
+        @Body() updateUserDto: UpdateUserDto,
+    ): Promise<User> {
+        return this.usersService.update(userId, updateUserDto);
+    }
+
+    @Version('1')
     @Delete(':id')
-    async delete(@Param('id') userId: string): Promise<UpdateResult> {
+    async delete(@Param('id') userId: string): Promise<User> {
         return this.usersService.delete(userId);
     }
 }

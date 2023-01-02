@@ -3,6 +3,7 @@ export class CreateOrganizationDto {
     type: string;
     location: string;
     memberTotal: number;
+    userId: string;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
