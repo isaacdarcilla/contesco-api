@@ -6,7 +6,7 @@ Contesco RESTful API built with NestJS and TypeScript
 
 - Data validation
 - Bad exception for not found response
-- Fix folder structure and configs
+- <s>Fix folder structure and configs</s>
 
 ## Installation
 

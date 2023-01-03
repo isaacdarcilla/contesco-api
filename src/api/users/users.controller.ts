@@ -10,9 +10,9 @@ import {
 import { Delete, Put } from '@nestjs/common/decorators';
 import { DefaultValuePipe, ParseIntPipe } from '@nestjs/common/pipes';
 import { Pagination } from 'nestjs-typeorm-paginate';
-import { CreateUserDto } from 'src/dto/users/create-user.dto';
-import { User } from 'src/entities/user.entity';
-import { UpdateUserDto } from '../../dto/users/update-user.dto';
+import { CreateUserDto } from 'src/api/users/dto/create-user.dto';
+import { User } from 'src/api/users/user.entity';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')

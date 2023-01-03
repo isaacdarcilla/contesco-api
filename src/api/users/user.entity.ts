@@ -10,7 +10,7 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { Organization } from './organization.entity';
+import { Organization } from '../organizations/organization.entity';
 @Entity('users')
 export class User {
     @PrimaryGeneratedColumn('uuid')

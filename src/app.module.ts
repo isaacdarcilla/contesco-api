@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth/auth.module';
 import config from 'src/config/database.config';
 import { UsersModule } from './api/users/users.module';
 import { OrganizationsModule } from './api/organizations/organizations.module';
@@ -18,7 +17,6 @@ import { OrganizationsModule } from './api/organizations/organizations.module';
                 ...configService.get('database'),
             }),
         }),
-        AuthModule,
         UsersModule,
         OrganizationsModule,
     ],

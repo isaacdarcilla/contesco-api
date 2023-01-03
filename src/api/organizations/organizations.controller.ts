@@ -12,9 +12,9 @@ import {
     Version
 } from '@nestjs/common';
 import { Pagination } from 'nestjs-typeorm-paginate';
-import { CreateOrganizationDto } from 'src/dto/organization/create-organization.dto';
-import { UpdateOrganizationDto } from 'src/dto/organization/update-organization.dto';
-import { Organization } from '../../entities/organization.entity';
+import { CreateOrganizationDto } from 'src/api/organizations/dto/create-organization.dto';
+import { UpdateOrganizationDto } from 'src/api/organizations/dto/update-organization.dto';
+import { Organization } from './organization.entity';
 import { OrganizationsService } from './organizations.service';
 
 @Controller('organizations')

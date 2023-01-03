@@ -4,11 +4,11 @@ import {
     IPaginationOptions, paginate,
     Pagination
 } from 'nestjs-typeorm-paginate';
-import { User } from 'src/entities/user.entity';
+import { User } from 'src/api/users/user.entity';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from '../../dto/users/create-user.dto';
-import { UpdateUserDto } from '../../dto/users/update-user.dto';
-import { IQueryParameters } from '../../types/find-interface.type';
+import { CreateUserDto } from './dto/create-user.dto';
+import { IQueryParameters } from '../../global/search.helper';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {

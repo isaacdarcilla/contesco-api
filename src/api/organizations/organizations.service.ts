@@ -4,11 +4,11 @@ import {
     IPaginationOptions, paginate,
     Pagination
 } from 'nestjs-typeorm-paginate';
-import { UpdateOrganizationDto } from 'src/dto/organization/update-organization.dto';
-import { IQueryParameters } from 'src/types/find-interface.type';
+import { UpdateOrganizationDto } from 'src/api/organizations/dto/update-organization.dto';
+import { IQueryParameters } from 'src/global/search.helper';
 import { Repository } from 'typeorm';
-import { CreateOrganizationDto } from '../../dto/organization/create-organization.dto';
-import { Organization } from '../../entities/organization.entity';
+import { CreateOrganizationDto } from './dto/create-organization.dto';
+import { Organization } from './organization.entity';
 
 @Injectable()
 export class OrganizationsService {

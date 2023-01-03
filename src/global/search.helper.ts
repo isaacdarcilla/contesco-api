@@ -1,4 +1,4 @@
-export interface IQueryParameters {
+export class IQueryParameters {
     limit?: number;
     page?: number;
     sortDirection?: string;
