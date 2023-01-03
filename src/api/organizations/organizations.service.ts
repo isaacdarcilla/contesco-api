@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
-    IPaginationOptions, paginate,
-    Pagination
+    IPaginationOptions,
+    paginate,
+    Pagination,
 } from 'nestjs-typeorm-paginate';
 import { UpdateOrganizationDto } from 'src/api/organizations/dto/update-organization.dto';
 import { IQueryParameters } from 'src/global/search.helper';

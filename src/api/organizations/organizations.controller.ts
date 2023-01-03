@@ -9,7 +9,7 @@ import {
     Post,
     Put,
     Query,
-    Version
+    Version,
 } from '@nestjs/common';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { CreateOrganizationDto } from 'src/api/organizations/dto/create-organization.dto';

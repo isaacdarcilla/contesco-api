@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
-    IPaginationOptions, paginate,
-    Pagination
+    IPaginationOptions,
+    paginate,
+    Pagination,
 } from 'nestjs-typeorm-paginate';
 import { User } from 'src/api/users/user.entity';
 import { Repository } from 'typeorm';

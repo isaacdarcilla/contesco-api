@@ -5,7 +5,7 @@ import {
     Param,
     Post,
     Query,
-    Version
+    Version,
 } from '@nestjs/common';
 import { Delete, Put } from '@nestjs/common/decorators';
 import { DefaultValuePipe, ParseIntPipe } from '@nestjs/common/pipes';
