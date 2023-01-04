@@ -8,9 +8,11 @@ async function bootstrap() {
         type: VersioningType.URI,
         defaultVersion: '1',
     });
-    app.useGlobalPipes(new ValidationPipe({
-        forbidUnknownValues: false
-    }));
+    app.useGlobalPipes(
+        new ValidationPipe({
+            forbidUnknownValues: false,
+        }),
+    );
     await app.listen(3000);
 }
 bootstrap();

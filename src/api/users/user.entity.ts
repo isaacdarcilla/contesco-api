@@ -1,8 +1,7 @@
 import * as bcrypt from 'bcrypt';
-import { IsAlpha } from 'class-validator';
-import { IsAlphanumeric, IsEmail, IsNotEmpty, IsOptional, MinLength } from 'class-validator';
 import {
     BeforeInsert,
+    BeforeUpdate,
     Column,
     CreateDateColumn,
     DeleteDateColumn,
@@ -21,38 +20,26 @@ export class User {
     @OneToOne(() => Organization, (organization) => organization.user)
     organization: Organization;
 
-    @IsAlpha()
-    @IsNotEmpty()
     @Index({ fulltext: true })
     @Column({ nullable: true })
     firstName: string;
 
-    @IsOptional()
     @Index({ fulltext: true })
     @Column({ nullable: true })
     middleName: string;
 
-    @IsAlpha()
-    @IsNotEmpty()
     @Index({ fulltext: true })
     @Column({ nullable: true })
     lastName: string;
 
-    @IsAlphanumeric()
-    @IsNotEmpty()
     @Index({ fulltext: true })
     @Column({ unique: true, nullable: true })
     userName: string;
 
-    @IsEmail()
-    @IsNotEmpty()
     @Index({ fulltext: true })
     @Column({ unique: true, nullable: true })
     email: string;
 
-    @IsAlphanumeric()
-    @IsNotEmpty()
-    @MinLength(8)
     @Column({ nullable: false, select: false })
     password: string;
 
@@ -69,6 +56,7 @@ export class User {
     deletedAt: Date;
 
     @BeforeInsert()
+    @BeforeUpdate()
     async encrypt() {
         this.password = await bcrypt.hash(this.password, 12);
     }
