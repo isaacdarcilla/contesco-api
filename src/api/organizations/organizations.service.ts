@@ -59,10 +59,11 @@ export class OrganizationsService {
         updateOrganizationDto: UpdateOrganizationDto,
     ): Promise<Organization> {
         const organization = await this.findOne(organizationId);
-        return this.organizationRepository.save({
+        const update = this.organizationRepository.create({
             ...organization,
             ...updateOrganizationDto,
         });
+        return this.organizationRepository.save(update);
     }
 
     async delete(organizationId: string): Promise<Organization> {
